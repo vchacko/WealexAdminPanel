@@ -1,19 +1,3 @@
-<?
-/*
-Copy Right (c) 2013 wealex.com.
-Developed by: vctheguru@gmail.com
-
-This file is part of Wealex Admin Panel.
-
-Wealex Admin Panel is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-
-Wealex Admin Panel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with Wealex Admin Panel.  If not, see  
-<http://www.gnu.org/licenses/>.
-
-
-I include code thats is part of this package other than default CodeIgniter files and folders. This was developed and tested with CodeIgniter 2.1.3 and any reproduction of their code must be according to their licence and the concept and code of this project must be under GNU GPL.
-*/
-?>
 <html>
 <head>
 <meta charset="utf-8">
@@ -100,7 +84,53 @@ I include code thats is part of this package other than default CodeIgniter file
                     <div class="right"><? if($page > 1){?>
                         <a href="/admin/<?=$cn?>/listall/1"><<</a>
                         <a href="/admin/<?=$cn?>/listall/<?=($page-1)?>">Previous</a><?}
+						$skip = 0;
+						$sskip = 0;
+						$eskip = 0;
+						$msskip = 0;
+						$meskip = 0;
+						
+						if($page_count > 15 ){
+							if($page < 7 || $page > ($page_count - 7)){
+								$skip = true;
+								$sskip = 8;
+								$eskip = $page_count - $sskip;
+							}
+							else{
+								$skip = true;
+								$sskip = 3;
+								$eskip = $page_count - $sskip;
+								
+								$msskip = $page - 3;
+								$meskip = $page + 3;
+							}
+						}
+						
+						$printd = 0;
+						
                         for ($i = 1; $i <= $page_count; $i++) {
+						
+							if( $skip && $eskip && $i > $sskip && $i < $eskip ){
+								
+								if($printd == 0 ){
+									echo "<a> . . . </a>";
+									$printd = 1;
+								}
+
+								if($msskip && $meskip && $i > $msskip && $i < $meskip ){
+
+								}
+								else{
+									
+									if( $i == $meskip){
+										$printd = 0;
+									}
+									continue;
+								}
+								
+
+							}
+							
                             if($page == $i){
                         ?>
                         <a href="/admin/<?=$cn?>/listall/<?=$i?>" style='font-size:1.2em;color:#ba4c32;'><strong><?=$i?></strong></a>

@@ -1,19 +1,4 @@
 <?php
-/*
-Copy Right (c) 2013 wealex.com.
-Developed by: vctheguru@gmail.com
-
-This file is part of Wealex Admin Panel.
-
-Wealex Admin Panel is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-
-Wealex Admin Panel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with Wealex Admin Panel.  If not, see  
-<http://www.gnu.org/licenses/>.
-
-
-I include code thats is part of this package other than default CodeIgniter files and folders. This was developed and tested with CodeIgniter 2.1.3 and any reproduction of their code must be according to their licence and the concept and code of this project must be under GNU GPL.
-*/
-
 class Generic_model extends CI_Model {
 
     protected $tablename = '';
@@ -27,7 +12,12 @@ class Generic_model extends CI_Model {
         $this->tablename = $table;
     }
     
-    public function get_active(){
+    public function get_active($order=NULL){
+	
+		if($order){
+			$this->db->order_by($order, "asc"); 
+		}
+	
         $query = $this->db->get_where($this->tablename, array('active ' => 'Yes'));
         $rs = $query->result_array();
         $query->free_result();
